@@ -1,5 +1,6 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import StaleElementReferenceException
 from utils.screenshot import take_screenshot
 from utils.wait_helpers import wait_for_element, wait_for_clickable
 from time import sleep
@@ -29,32 +30,40 @@ class BasePage:
             )
 
     def _handle_overlay(self):
-        # fuzzy match
         overlays = self._driver.find_elements(
             By.XPATH,
             "//*[contains(@class,'modal') or contains(@class,'overlay') or contains(@class,'consent')]",
         )
-
         for overlay in overlays:
-            if overlay.is_displayed():
+            try:
+                if not overlay.is_displayed():
+                    continue
                 buttons = overlay.find_elements(By.XPATH, ".//button")
                 for btn in buttons:
-                    text = btn.text.lower()
-                    if any(
-                        k in text
-                        for k in [
-                            "accept",
-                            "agree",
-                            "start",
-                            "watch",
-                            "understand",
-                            "close",
-                            "ok",
-                            "同意",
-                        ]
-                    ):
-                        btn.click()
-                        return True
+                    try:
+                        text = btn.text.lower()
+                        if any(
+                            k in text
+                            for k in [
+                                "accept",
+                                "agree",
+                                "start",
+                                "watch",
+                                "understand",
+                                "close",
+                                "ok",
+                                "同意",
+                            ]
+                        ):
+                            btn.click()
+                            return True
+                    except StaleElementReferenceException:
+                        # before clicking dis, skip it
+                        continue
+            except StaleElementReferenceException:
+                # overlay
+                continue
+
         return False
 
     # ── Screenshot ────────────────────────────────────────────────────────────
