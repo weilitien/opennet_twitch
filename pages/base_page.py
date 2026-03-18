@@ -7,7 +7,8 @@ from time import sleep
 
 class BasePage:
     def __init__(self, driver: WebDriver):
-        self._driver       = driver
+        self._driver = driver
+
     # ── Navigation ────────────────────────────────────────────────────────────
 
     def open(self, url: str) -> None:
@@ -26,7 +27,7 @@ class BasePage:
                 });
                 """
             )
-    
+
     def _handle_overlay(self):
         # fuzzy match
         overlays = self._driver.find_elements(

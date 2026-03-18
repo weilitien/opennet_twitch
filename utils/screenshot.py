@@ -25,8 +25,8 @@ def take_screenshot(driver: WebDriver, name: str) -> str:
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     safe_name = name.replace(" ", "_").lower()
-    filename  = f"{safe_name}_{timestamp}.png"
-    filepath  = os.path.join(SCREENSHOT_DIR, filename)
+    filename = f"{safe_name}_{timestamp}.png"
+    filepath = os.path.join(SCREENSHOT_DIR, filename)
 
     driver.save_screenshot(filepath)
     print(f"[screenshot] saved → {filepath}")

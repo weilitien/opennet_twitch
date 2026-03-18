@@ -1,4 +1,11 @@
+# --- core ---
 selenium>=4.18.0
 webdriver-manager>=4.0.0
+
+# --- test runner --- 
 pytest>=8.0.0
 pytest-html>=4.1.0
+
+# --- quality checks ---
+ruff>=0.4.0
+mypy>=1.8.0

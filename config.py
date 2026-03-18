@@ -1,8 +1,3 @@
-"""
-Central configuration for the Twitch WAP test framework.
-All device settings, URLs, and timeouts live here — zero hard-coding in tests.
-"""
-
 # ── Target URL ────────────────────────────────────────────────────────────────
 BASE_URL = "https://m.twitch.tv/"
 

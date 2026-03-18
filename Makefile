@@ -4,7 +4,7 @@
 
 PYTHON     := python
 PYTEST     := pytest
-SRC_DIRS   := pages components utils tests
+SRC_DIRS   := pages utils tests
 REPORT_DIR := reports
 
 # ------------------------------------------------------------------------------
@@ -21,15 +21,6 @@ install:
 
 test:
 	$(PYTEST)
-
-test-smoke:
-	$(PYTEST) -m smoke
-
-test-wap:
-	$(PYTEST) -m wap
-
-test-regression:
-	$(PYTEST) -m regression
 
 report:
 	@mkdir -p $(REPORT_DIR)
@@ -66,11 +57,14 @@ format: ruff-format ruff-check
 # ------------------------------------------------------------------------------
 
 clean:
-	@rm -rf $(REPORT_DIR) screenshots __pycache__
-	@find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-	@find . -type d -name ".mypy_cache" -exec rm -rf {} + 2>/dev/null || true
-	@echo ">>> Cleaned!"
-
+	@echo ">>> Cleaning up..."
+	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name .mypy_cache -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name .pytest_cache -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name .ruff_cache  -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name "*.pyc" -delete 2>/dev/null || true
+	rm -rf $(REPORT_DIR)
+	@echo ">>> Clean done!"
 # ------------------------------------------------------------------------------
 # Help
 # ------------------------------------------------------------------------------

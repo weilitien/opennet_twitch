@@ -2,13 +2,7 @@
 
 Mobile-emulated end-to-end tests for [twitch.tv](https://www.twitch.tv) using **Selenium + pytest**.
 
-> 📱 Tests run inside Chrome's Mobile Emulator (Pixel 5 profile) — no physical device needed.
-
----
-
-## Demo
-
-> *(Add a GIF here showing the test running locally — e.g. recorded with [LICEcap](https://www.cockos.com/licecap/) or [peek](https://github.com/phw/peek))*
+> Tests run inside Chrome's Mobile Emulator — no physical device needed.
 
 ---
 
@@ -29,9 +23,9 @@ twitch_wap_test/
 │   └── screenshot.py        # Timestamped screenshot helper
 ├── tests/
 │   └── test_twitch_wap.py   # Test cases
+│   └── conftest.py          # pytest fixtures + auto-screenshot on failure
 ├── screenshots/             # Auto-created; holds captured PNGs
 ├── config.py                # Device, URL, and timeout settings
-├── conftest.py              # pytest fixtures + auto-screenshot on failure
 ├── pytest.ini               # Runner config and custom markers
 └── requirements.txt
 ```
@@ -58,28 +52,12 @@ pip install -r requirements.txt
 ## Running the tests
 
 ```bash
-# Run all WAP tests
-pytest -m wap
-
-# Run only the smoke suite
-pytest -m smoke
-
 # Run the full spec test with verbose output
-pytest tests/test_twitch_wap.py::TestTwitchWAP::test_search_and_view_streamer -v
+pytest tests/ -v
 
 # Generate an HTML report
 pytest --html=report.html --self-contained-html
 ```
-
----
-
-## Test cases
-
-| # | Test | Markers | Description |
-|---|------|---------|-------------|
-| 1 | `test_search_and_view_streamer` | `wap, smoke` | Full happy-path: open Twitch → search StarCraft II → scroll × 2 → select streamer → screenshot |
-| 2 | `test_mobile_viewport_is_applied` | `wap` | Sanity check that Chrome mobile emulation is active |
-| 3 | `test_search_returns_results` | `wap` | Verify search returns ≥ 1 result card for StarCraft II |
 
 ---
 
@@ -95,10 +73,3 @@ pytest --html=report.html --self-contained-html
 | **Explicit waits only** | `implicitly_wait` is kept low (5 s); all critical waits use `WebDriverWait` for precision |
 
 ---
-
-## Extending the framework
-
-- **New page** → add a class in `pages/` that extends `BasePage`
-- **New device** → update `MOBILE_DEVICE` in `config.py`
-- **New popup type** → add a locator to `_POPUP_LOCATORS` in `components/popup_handler.py`
-- **CI** → uncomment `--headless=new` in `utils/driver_factory.py`

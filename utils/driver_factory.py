@@ -1,8 +1,3 @@
-"""
-Driver factory — builds a Chrome WebDriver configured for mobile emulation.
-Swap this file to support other browsers/devices without touching any test.
-"""
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -23,9 +18,9 @@ def create_mobile_driver() -> webdriver.Chrome:
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     # Uncomment to run headless in CI:
-    # options.add_argument("--headless=new")
+    options.add_argument("--headless=new")
 
     service = Service(ChromeDriverManager().install())
-    driver  = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=service, options=options)
     driver.implicitly_wait(IMPLICIT_WAIT)
     return driver

@@ -1,5 +1,3 @@
-import time
-
 from selenium.webdriver.common.by import By
 
 from config import BASE_URL
@@ -7,15 +5,16 @@ from pages.base_page import BasePage
 
 
 class TwitchHomePage(BasePage):
-
     # ── Locators ──────────────────────────────────────────────────────────────
-    _SEARCH_ICON     = (By.CSS_SELECTOR, "a[href='/directory']")
-    _SEARCH_ICON_ALT = (By.CSS_SELECTOR,
-                        "[data-a-target='nav-search-button'], a[href*='search']")
+    _SEARCH_ICON = (By.CSS_SELECTOR, "a[href='/directory']")
+    _SEARCH_ICON_ALT = (
+        By.CSS_SELECTOR,
+        "[data-a-target='nav-search-button'], a[href*='search']",
+    )
 
     # ── Actions ───────────────────────────────────────────────────────────────
 
-    def load(self) -> "TwitchHomePage":
+    def load(self):
         self.open(BASE_URL)
         self._wait_visible(self._SEARCH_ICON)
         return self
