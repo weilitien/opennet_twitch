@@ -7,7 +7,7 @@ Mobile-emulated end-to-end tests for [twitch.tv](https://www.twitch.tv) using **
 ---
 ## Demo
 
-
+![Test Running](assets/demo.gif)
 ---
 
 ## Repository structure
