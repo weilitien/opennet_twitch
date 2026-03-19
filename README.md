@@ -12,21 +12,21 @@ Mobile-emulated end-to-end tests for [twitch.tv](https://www.twitch.tv) using **
 twitch_wap_test/
 ├── pages/                   # Page Object Model
 │   ├── base_page.py         # Shared helpers (scroll, popup, screenshot)
-│   ├── home_page.py         # Twitch landing page
-│   ├── search_page.py       # Search input + results
+│   ├── home_page.py         
+│   ├── search_page.py       
 │   └── streamer_page.py     # Individual channel page
 ├── components/
-│   └── popup_handler.py     # Reusable modal/overlay dismissal
+│   └── popup_handler.py     # Reusable modal/overlay
 ├── utils/
 │   ├── driver_factory.py    # Chrome mobile-emulation setup
 │   ├── wait_helpers.py      # Explicit wait wrappers
-│   └── screenshot.py        # Timestamped screenshot helper
+│   └── screenshot.py        
 ├── tests/
 │   └── test_twitch_wap.py   # Test cases
 │   └── conftest.py          # pytest fixtures + auto-screenshot on failure
-├── screenshots/             # Auto-created; holds captured PNGs
+├── screenshots/             # Auto-created
 ├── config.py                # Device, URL, and timeout settings
-├── pytest.ini               # Runner config and custom markers
+├── pytest.ini               
 └── requirements.txt
 ```
 
@@ -70,6 +70,5 @@ pytest --html=report.html --self-contained-html
 | **`conftest.py` fixture** | Driver lifecycle (create → test → quit) managed once, not per test |
 | **`config.py`** | All magic strings in one file — swap device or URL without touching a test |
 | **Auto-screenshot on failure** | `pytest_runtest_makereport` hook captures state at the moment of failure |
-| **Explicit waits only** | `implicitly_wait` is kept low (5 s); all critical waits use `WebDriverWait` for precision |
 
 ---

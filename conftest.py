@@ -1,11 +1,3 @@
-"""
-conftest.py — pytest session / function fixtures.
-
-The driver fixture is the single source of truth for WebDriver setup.
-Tests never import driver_factory directly.
-"""
-
-import os
 import pytest
 
 from utils.driver_factory import create_mobile_driver
